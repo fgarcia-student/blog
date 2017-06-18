@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		#myCanvas{
+			background-color: black;
+		}
+	</style>
+	<script type="text/javascript" src="scripts/draw.js"></script>
+	<title>Drawing Solo</title>
+</head>
+<body>
+Pen Width:
+	<select id="penWidth">
+		<option value="1">1</option>
+		<option value="3">3</option>
+		<option value="5">5</option>
+		<option value="7">7</option>
+	</select>
+Pen Color:
+	<select id="penColor">
+		<option value="ffffff">White</option>
+		<option value="ff0000">Red</option>
+		<option value="0000ff">Blue</option>
+		<option value="00ff00">Green</option>		
+	</select>
+		<button type="button" id="btnClear" onmousedown="Clear_Down()">Clear</button>
+	<hr>
+<canvas id="myCanvas" width="500" height="500">Only HTML5</canvas>
+</body>
+</html>

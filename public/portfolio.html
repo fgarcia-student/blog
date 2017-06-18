@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Francisco Garcia</title>
+	<meta name=viewport content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body onload="rmLinks()">
+	<div class="nav">
+		<div class="nav-link"><a href="#intro">Francisco Garcia</a></div>
+		<div class="nav-link"><a href="#aboutMe">About Me</a></div>
+		<div class="nav-link"><a href="#projects">Projects</a></div>
+		<div class="nav-link"><a href="#contact">Contact Me</a></div>
+	</div>
+	<div class="content">
+		<div id="intro" class="profileItem">
+			<h2>
+				<span class="title">HELLO!</span> My name is Francisco Garcia and welcome to my web! Here you will see and find everything I love plus my portfolio and some projects of mine. 
+			</h2>
+			<button id="btn-resume" onclick="loadCV()">View Resume</button>
+		</div>
+		<div id="aboutMe" class="profileItem">
+			<span class="title">INTRO</span>
+			<p>
+				Im 23 years old and have lived in NY my whole life. I moved out of Manattan at 10 years old and currently live in Rockland County. Im currently finishing my last semester of my Bachelors of Science in Computer Science. I enjoy many things in life, but theres nothing more satisfying than coding an elegant solution to a tough problem.
+			</p>
+			<p>
+				I've always loved to problem solve, so I was naturally attracted to Mathematics and Computing. Using my strong theoretical C.S. background , along with C++ and Java, I can confidently face any problem in front of me.
+			</p>
+
+			<p>
+				 I currently enjoy web development and design, and hope to grow as a web designer in the future.
+			</p>
+		</div>
+		<div id="projects" class="profileItem">
+			<div id="projects-container">
+				<span class="title">PROJECTS</span>	
+				<div class="projectItem">
+					<a href="projects/canvas/index.html"><img src="images/canvas.jpg" /></a>
+					<span class="projCap">Canvas Drawing</span>
+					<p class="projDesc">I created a simple canvas paint clone. The user has multiple colors to choose from, along with multiple different pen sizes. The user also has an option to clear the screen.</p>
+				</div>
+
+				<div class="projectItem">
+					<a href="projects/calculator/index.html"><img src="images/calculator.jpg" /></a>
+					<span class="projCap">Web Calculator</span>
+					<p class="projDesc">This is a basic web calculator with the default operations of add,subtract,multiply,and divide. Designed to allow float division.</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="contact" class="profileItem">
+			<span class="title">CONTACT</span>
+			<a href="https://www.facebook.com/fgarcia094">Facebook</a> |
+			<a href="https://www.github.com/fgarcia-student">Github</a> |
+			<a href="mailto:fgarcia.student04@gmail.com">Gmail</a>
+		</div>
+	</div>
+</body>
+</html>
