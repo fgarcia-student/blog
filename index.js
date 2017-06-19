@@ -6,10 +6,11 @@ let ejs = require('ejs');
 let path = require('path');
 
 let app = express();
+let conString;
 if(process.env.DATABASE_URL){
-	let conString = process.env.DATABASE_URL;
+	conString = process.env.DATABASE_URL;
 }else{
-	let conString = "postgres:postgres@localhost:5432/blog";
+	conString = "postgres:postgres@localhost:5432/blog";
 }
 let client = new pg.Client(conString);
 client.connect();
