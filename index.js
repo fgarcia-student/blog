@@ -15,7 +15,9 @@ if(process.env.DATABASE_URL){
 let client = new pg.Client(conString);
 client.connect();
 let q = client.query('create table if not exists threads(id serial unique not null primary key, title varchar(50), children integer)');
-
+q.on('end', () => {
+	let p = client.query('create table if not exists posts(id serial unique not null primary key, author varchar(50), description(255), thread_no integer references threads on delete cascade )');
+});
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -73,7 +75,6 @@ app.delete('/threads', (req,res) => {
 });
 
 app.get('/posts', (req,res) => {
-	let p = client.query('create table if not exists posts(id serial unique not null primary key, author varchar(50), description(255), thread_no integer references threads on delete cascade )');
 	let ret = [];
 	let id = req.query.id;
 	let q = client.query('select * from posts where thread_no=$1', [id], (err, result) => {
