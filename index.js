@@ -1,6 +1,5 @@
 let express = require('express');
 let pg = require('pg');
-let Sequelize = require('sequelize');
 let bodyParser = require('body-parser');
 let ejs = require('ejs');
 let path = require('path');
