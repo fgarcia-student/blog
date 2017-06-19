@@ -5,7 +5,11 @@ let ejs = require('ejs');
 let path = require('path');
 
 let app = express();
-let conString = "postgres:postgres@localhost:5432/blog";
+if(process.env.DATABASE_URL){
+	let conString = process.env.DATABASE_URL;
+}else{
+	let conString = "postgres:postgres@localhost:5432/blog";
+}
 let client = new pg.Client(conString);
 client.connect();
 
@@ -25,7 +29,7 @@ app.get('/portfolio', (req,res) => {
 
 app.get('/threads', (req,res) => {
 	let ret = [];
-	let q = client.query('select * from threads', (err,result) => {
+	let q = client.query('select * from threads order by children desc', (err,result) => {
 		for(let i = 0; i < result.rows.length; i++){
 			let obj = {};
 			obj.id = result.rows[i].id;
@@ -45,9 +49,23 @@ app.post('/threads', (req,res) => {
 	let obj = JSON.stringify(req.body);
 	obj = JSON.parse(obj);
 	let threadTitle = obj.title;
-	let q = client.query('insert into threads (title) values ($1)', [threadTitle]);
+	let q = client.query('insert into threads (title,children) values ($1,0)', [threadTitle]);
 	q.on('end', () => {
-		res.send(200);
+		res.sendStatus(200);
+	});
+});
+
+app.delete('/threads', (req,res) => {
+	let id = req.query.id;
+	let pass = true;
+	let q = client.query('delete from threads where id=$1',[id],(err) => {
+		if(err){
+			pass = false;
+			res.redirect('/');
+		}
+	});
+	q.on('end',() => {
+		res.sendStatus(200);
 	});
 });
 
@@ -66,8 +84,40 @@ app.get('/posts', (req,res) => {
 	});
 	q.on('end', () => {
 		res.render('allposts', {
-			ret: ret
+			ret: ret || null,
+			id: id
 		});
+	});
+});
+
+app.post('/posts', (req,res) => {
+	let obj = JSON.stringify(req.body);
+	obj = JSON.parse(obj);
+	let postAuthor = obj.author;
+	let postContent = obj.post;
+	let thread = obj.parentID;
+	let q = client.query('insert into posts (author,description,thread_no) values ($1,$2,$3)', [postAuthor,postContent,thread]);
+	q.on('end', () => {
+		client.query('update threads set children = children + 1 where id=$1',[thread]);
+		res.sendStatus(200);
+	});
+});
+
+app.delete('/posts', (req,res) => {
+	let id = req.query.id;
+	let pid = req.query.pid;
+	let pass = true;
+	let q = client.query('delete from posts where id=$1',[id],(err) => {
+		if(err){
+			pass = false;
+			res.redirect('/');
+		}
+	});
+	q.on('end',() => {
+		if(pass){
+			client.query('update threads set children = children - 1 where id=$1',[pid]);
+		}
+		res.sendStatus(200);
 	});
 });
 
@@ -75,6 +125,6 @@ app.get('*', (req,res) => {
 	res.redirect('/');
 });
 
-app.listen(3000,() => {
+app.listen((process.env.PORT || 3000),() => {
 	console.log("listening on 3000");
 });

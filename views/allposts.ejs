@@ -3,31 +3,36 @@
 <% include head %>
 <body>
 	<div class="container">
-		<h1>Posts for Thread: <%= ret[0].thread_no %></h1>
+		<h1>Posts for Thread: <span id="threadID" ><%= id %></span></h1>
 		<% include navbar %>
 		<div class="well">
 			<form>
 				<h2>Create Post</h2>
 				<label>
-					<h3>Author</h3>
-					<input id="titleText" type="text" class="form-control" />
+					<h3>Author (50 char max)</h3>
+					<input id="authorText" type="text" class="form-control" />
 				</label><br />
 				<label>
-					<h3>Post Details</h3>
+					<h3>Post Details (255 char max)</h3>
 					<textarea id="postText" class="form-control" ></textarea>
 				</label><br />
-				<button id="submitThread" type="button" class="btn btn-info">+</button>
+				<button id="submitPost" type="button" class="btn btn-info">+</button>
 			</form>
 		</div>
-		<% for(let i = 0; i < ret.length; i++){ %>
-			<div class="well">
-				<div class="row">
-					<div class="col-xs-11">
-						<h3>Author: <%= ret[i].author %> </h3>
-						<h4>Posts: <%= ret[i].description %> </h4>
+		<% if(ret) { %>
+			<% for(let i = 0; i < ret.length; i++){ %>
+				<div class="well">
+					<div class="row">
+						<div class="col-xs-11">
+							<h3>Author: <%= ret[i].author %> </h3>
+							<h4>Post: <%= ret[i].description %> </h4>
+						</div>
+						<div class="col-xs-1">
+						<button class="btn btn-danger posts" id="<%= ret[i].id %>">X</button>
+					</div>
 					</div>
 				</div>
-			</div>
+			<% } %>
 		<% } %>
 	</div>
 </body>
