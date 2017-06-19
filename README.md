@@ -1,5 +1,7 @@
 Blog website that hosts my portfolio
 
+Link: https://fgarcia-blog.herokuapp.com/
+
 Features:
 	
 	create thread
@@ -21,3 +23,4 @@ TODO:
 		users can only delete posts they create
 
 	implement pictue upload on each post + thread
+
