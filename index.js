@@ -14,9 +14,9 @@ if(process.env.DATABASE_URL){
 }
 let client = new pg.Client(conString);
 client.connect();
-let q = client.query('create table if not exists threads(id serial unique not null primary key, title varchar(50), children integer);');
+let q = client.query('create table if not exists threads(id serial unique not null primary key, title varchar(50), children integer)');
 q.on('end', () => {
-	client.query('create table if not exists posts(id serial unique not null primary key, author varchar(50), description(255), thread_no integer references threads on delete cascade );');
+	client.query('create table if not exists posts(id serial unique not null primary key, author varchar(50), description(255), thread_no integer references threads on delete cascade )');
 });
 
 app.use(express.static('public'));
