@@ -7,7 +7,7 @@ let path = require('path');
 
 let app = express();
 if(process.env.DATABASE_URL){
-	let conString = new Sequelize(process.env.DATABASE_URL);
+	let conString = process.env.DATABASE_URL;
 }else{
 	let conString = "postgres:postgres@localhost:5432/blog";
 }
