@@ -48,6 +48,10 @@ a, a:visited {
 	color: white;
 }
 
+.tech {
+	color: red;
+}
+
 #intro {
 	background-color: #303036;
 	color: white;
